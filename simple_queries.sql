@@ -72,4 +72,56 @@ WHERE timezone LIKE 'Europe/%'
 ORDER BY pop_max DESC 
 LIMIT 5; 
 
+/* 
+Measutements in PostGIS 
+*/ 
+
+-- Calculate the length of the Vltava River from  the Natural Earth database using SQL. 
+--  Present the result in kilometers. 
+-- Be aware that Natural Earth database has a  typo mistake, the name of Vltava river is  ‘Vitava’!
+
+-- first chech attributes in ne_10m_rivers_lake_centerlines
+SELECT * 
+FROM ne_10m_rivers_lake_centerlines
+LIMIT 1; 
+
+-- use attribute name 
+SELECT ST_Length(
+    ST_Transform(the_geom, 3035)
+  ) / 1000 AS length_km 
+FROM ne_10m_rivers_lake_centerlines
+WHERE name = 'Vitava'; 
+
+-- Calculate the area of the city with gid = 7614  in the database Natural Earth2 (urban areas table) using SQL query. 
+-- Present the result in square kilometers as city name and area.
+
+SELECT ST_Area(
+    ST_Transform(the_geom, 3035)
+  ) / 1000000 AS areas_sqkm  
+FROM ne_10m_urban_areas
+WHERE gid = 7614;
+
+-- Calculate the distance between Prague and Berlin using the Natural Earth database (populated places table) using SQL query. 
+-- e.g. using populated places with name = ‘Berlin’ and urban areas gid = 7614; 
+
+-- not a nice solution 
+SELECT ST_Distance(
+  ST_Transform(p.the_geom, 3035), 
+  ST_Transform(u.the_geom, 3035)) 
+  / 1000 AS dist_km
+FROM ne_10m_populated_places AS p, ne_10m_urban_areas AS u 
+WHERE p.name = 'Berlin' AND u.gid='7614'; 
+
+-- better
+
+SELECT ST_Distance(
+                ST_Transform(A.the_geom, 3035), 
+                B.geom
+                ) AS dist_km 
+FROM ne_10m_populated_places AS A, 
+    -- nested SELECT asliased as B, while geometry is aliased as geom 
+    (SELECT ST_TRansform(the_geom, 3035) AS geom 
+    FROM ne_10m_populated_places
+    WHERE name = 'Prague') AS B 
+WHERE name = 'Berlin';
 
