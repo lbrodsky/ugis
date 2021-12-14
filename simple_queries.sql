@@ -125,3 +125,41 @@ FROM ne_10m_populated_places AS A,
     WHERE name = 'Prague') AS B 
 WHERE name = 'Berlin';
 
+
+/*
+Spatial JOIN 
+*/
+
+-- Find the name of the city with id = 7614 in the database urban areas table by JOINing it with populated places table in the Natural Earth DB. 
+--  Print the area of the city as well. 
+SELECT p.name, u.gid, u.area_sqkm 
+FROM ne_10m_urban_areas AS u
+JOIN ne_10m_populated_places AS p  
+ON ST_Contains(u.the_geom, p.the_geom) 
+WHERE u.gid = 7614; 
+
+-- check consistency of the area by calculating it from urban area table 
+ST_Area(ST_Transform(u.the_geom, 3035)) / 1000000 AS Urban_area_sqkm
+
+
+-- Find the ten largest cities in the World according to the Natural Earth database. 
+-- JOIN populated places with urban areas. 
+-- Print: name, administrative unit (0), megacity, maximum population, area. 
+-- Sort it by area and then by population. 
+-- Filter only megacities.
+
+-- check first the attributes 
+SELECT p.name, p.megacity, p.adm0name, p.pop_max
+FROM ne_10m_populated_places AS p 
+WHERE p.megacity = 1 
+limit 1; 
+
+-- JOIN it! 
+SELECT p.name, p.megacity, p.adm0name, u.area_sqkm, p.pop_max 
+FROM ne_10m_populated_places AS p 
+JOIN ne_10m_urban_areas AS u 
+ON ST_Contains(u.the_geom, p.the_geom) 
+WHERE p.megacity = 1 
+ORDER BY u.area_sqkm, p.pop_max
+LIMIT 10; 
+
