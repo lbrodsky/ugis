@@ -50,6 +50,11 @@ SELECT pop_max
 FROM ne_10m_populated_places
 WHERE name = 'Prague';
 
+-- attribute sumation 
+SELECT SUM(pop_max) 
+FROM ne_10m_populated_places
+WHERE name = 'Prague';
+
 -- Sort the population figures in the database in descending order 
 -- print also the name of the city
 SELECT name, pop_max
