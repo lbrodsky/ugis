@@ -1,4 +1,4 @@
-# PostgreSQL / PostGIS local installation
+# PostgreSQL / PostGIS and QGIS installation
 
 ### 1. Install PostgreSQL on Windows 
 
@@ -24,3 +24,11 @@ Disconnect from database: 'right click' on PostgreSQL -> Disconnect -> Exit
 [PostGIS extension](https://postgis.net)
 
 TODO: 
+
+### 3. Install QGIS 
+
+[QGIS](https://qgis.org)
+
+Download now -> run installer 
+
+Open QGIS 
