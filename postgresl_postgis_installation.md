@@ -2,7 +2,7 @@
 
 ### 1. Install PostgreSQL on Windows 
 
-[PostgreSQl](https://www.postgresql.org/) 
+[PostgreSQL](https://www.postgresql.org/) 
 
 Download -> Windows -> Download the installer (e.g. version 15.0) 
 
@@ -21,6 +21,6 @@ Disconnect from database: 'right click' on PostgreSQL -> Disconnect -> Exit
 
 ### 2. Install PostGIS extension within PostgreSQL 
 
-[PostGIS extension]([https://www.postgresql.org/](https://postgis.net)) 
+[PostGIS extension](https://postgis.net)
 
 TODO: 
