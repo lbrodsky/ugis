@@ -70,7 +70,7 @@ Connection to PostGIS shall exists with default schema public.
 
 #### 3.2 Import spatial data to PostGIS 
 
-Open menu Databases - DB manager 
+Open in QGIS menu Databases - DB manager 
 
 Open Icon PostGIS - Natural Earth 
 
