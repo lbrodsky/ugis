@@ -94,3 +94,10 @@ Ok
 
 Test your data: drag the  ne_10m_admin_0_countrie layer and drop it in QGIS Layers. The data shall be viewed in the Map window. 
 
+Import these data sets to your DB:
+- ne_10m_land.shp 
+- ne_10m_populated_places.shp 
+- ne_10m_urban_areas.shp
+- ne_10m_rivers_lake_centerlines.shp
+
+
